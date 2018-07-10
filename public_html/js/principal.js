@@ -1,26 +1,37 @@
-// DOM(Document Object Model) document faz a comunicação entre HTML e JavaScript
-// console.log(document);
-
-// seleciondo apenas elementos da classe titulo
-var titulo = document.querySelector(".titulo");
-//textContent é o conteudo que esta no objeto
-titulo.textContent = "Aparecida Nutricionista";
-
-//objeto primeiro paciente 
 var paciente = document.querySelector("#primeiro-paciente");
 
-//conteudo do objeto .info-peso e info-altura 
-var peso = paciente.querySelector(".info-peso").textContent;
-var altura = paciente.querySelector(".info-altura").textContent;
+var tdPeso = paciente.querySelector(".info-peso");
+var tdAltura = paciente.querySelector(".info-altura");
 
-//IMC = peso / altura x altura;
-var imc = (peso / (altura * altura));
+var peso = tdPeso.textContent;
+var altura = tdAltura.textContent;
 
-var tdIMC = paciente.querySelector(".info-imc");
+var tdImc = paciente.querySelector(".info-imc");
 
-tdIMC.textContent = imc;
+tdImc.textContent = imc;
 
-console.log(peso);
-console.log(altura);
-console.log(imc);
+//validação 
+var alturaEhValida = true;
+var pesoEhValido = true;
 
+//peso
+if(peso < 0 || peso >= 400) {
+    console.log("Peso inválida");
+    tdPeso.textContent = "Peso inválida!";
+    pesoEhValido = false;
+}
+
+//altura
+if(altura < 0 || altura >= 4 ) {
+    console.log("Altura inválida");
+    tdAltura.textContent = "Altura inválida!";
+    alturaEhValida = false;
+}
+
+//calculo do imc
+if (alturaEhValida && pesoEhValido) {
+    imc = peso / (altura * altura);
+    tdImc.textContent = imc;
+} else {
+    tdImc.textContent = "Altura e/ou peso inválidos!";
+}
