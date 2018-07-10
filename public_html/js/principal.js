@@ -1,37 +1,40 @@
-var paciente = document.querySelector("#primeiro-paciente");
+var pacientes = document.querySelectorAll(".paciente");
 
-var tdPeso = paciente.querySelector(".info-peso");
-var tdAltura = paciente.querySelector(".info-altura");
+for (var i = 0 ; i < pacientes.length ; i++) {
+    paciente = pacientes[i];
+    console.log(paciente);
 
-var peso = tdPeso.textContent;
-var altura = tdAltura.textContent;
+    var tdPeso = paciente.querySelector(".info-peso");
+    var tdAltura = paciente.querySelector(".info-altura");
+    var peso = tdPeso.textContent;
+    var altura = tdAltura.textContent;
+    var tdImc = paciente.querySelector(".info-imc");
 
-var tdImc = paciente.querySelector(".info-imc");
+    //validação 
+    var alturaEhValida = true;
+    var pesoEhValido = true;
 
-tdImc.textContent = imc;
+    //peso
+    if (peso <= 0 || peso >= 400) {
+        console.log("Peso inválida");
+        tdPeso.textContent = "Peso inválida!";
+        pesoEhValido = false;
+        paciente.style.backgroundColor = "lightcoral";
+    }
 
-//validação 
-var alturaEhValida = true;
-var pesoEhValido = true;
+    //altura
+    if (altura <= 0 || altura >= 3) {
+        console.log("Altura inválida");
+        tdAltura.textContent = "Altura inválida!";
+        alturaEhValida = false;
+        paciente.style.backgroundColor = "lightcoral";
+    }
 
-//peso
-if(peso < 0 || peso >= 400) {
-    console.log("Peso inválida");
-    tdPeso.textContent = "Peso inválida!";
-    pesoEhValido = false;
-}
-
-//altura
-if(altura < 0 || altura >= 4 ) {
-    console.log("Altura inválida");
-    tdAltura.textContent = "Altura inválida!";
-    alturaEhValida = false;
-}
-
-//calculo do imc
-if (alturaEhValida && pesoEhValido) {
-    imc = peso / (altura * altura);
-    tdImc.textContent = imc;
-} else {
-    tdImc.textContent = "Altura e/ou peso inválidos!";
+    //calculo do imc
+    if (alturaEhValida && pesoEhValido) {
+        imc = (peso / (altura * altura));
+        tdImc.textContent = imc.toFixed(2);
+    } else {
+        tdImc.textContent = "Altura e/ou peso inválidos!";
+    }
 }
