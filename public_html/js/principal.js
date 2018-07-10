@@ -10,13 +10,17 @@ titulo.textContent = "Aparecida Nutricionista";
 var paciente = document.querySelector("#primeiro-paciente");
 
 //conteudo do objeto .info-peso e info-altura 
-peso = paciente.querySelector(".info-peso").textContent;
-altura = paciente.querySelector(".info-altura").textContent;
+var peso = paciente.querySelector(".info-peso").textContent;
+var altura = paciente.querySelector(".info-altura").textContent;
 
 //IMC = peso / altura x altura;
-imc = (peso / (altura * altura));
+var imc = (peso / (altura * altura));
+
+var tdIMC = paciente.querySelector(".info-imc");
+
+tdIMC.textContent = imc;
 
 console.log(peso);
 console.log(altura);
-
 console.log(imc);
+
