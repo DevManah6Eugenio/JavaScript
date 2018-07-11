@@ -17,17 +17,17 @@ for (var i = 0 ; i < pacientes.length ; i++) {
     //peso
     if (peso <= 0 || peso >= 400) {
         console.log("Peso inválida");
-        tdPeso.textContent = "Peso inválida!";
+        tdImc.textContent = "Peso inválida!";
         pesoEhValido = false;
-        paciente.style.backgroundColor = "lightcoral";
+        paciente.classList.add("paciente-invalido");
     }
 
     //altura
     if (altura <= 0 || altura >= 3) {
         console.log("Altura inválida");
-        tdAltura.textContent = "Altura inválida!";
+        tdImc.textContent = "Altura inválida!";
         alturaEhValida = false;
-        paciente.style.backgroundColor = "lightcoral";
+        paciente.classList.add("paciente-invalido");
     }
 
     //calculo do imc
@@ -35,6 +35,6 @@ for (var i = 0 ; i < pacientes.length ; i++) {
         imc = (peso / (altura * altura));
         tdImc.textContent = imc.toFixed(2);
     } else {
-        tdImc.textContent = "Altura e/ou peso inválidos!";
+        console.log("Altura e/ou peso inválidos!");
     }
 }
