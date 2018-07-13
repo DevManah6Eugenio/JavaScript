@@ -6,26 +6,16 @@ botaoPaciente.addEventListener("click", function (Event) {
     event.preventDefault();
 
     var form = document.querySelector("#form-adiciona");
-
     var paciente = obtemPacientesDoFormulario(form);
-
     var nomePacientes = document.querySelectorAll(".info-nome");
-    var jaExistePaciente = false;
-    for (var i = 0; i < nomePacientes.length; i++) {
-        nomePaciente = nomePacientes[i];
-        if (nomePaciente.textContent === nome) {
-            jaExistePaciente = true;
-            alert("Paciente ja existe");
-        }
-    }
-
-    if (jaExistePaciente !== true) {
+    if (usuarioExiste(nomePacientes, paciente.nome) !== true) {
         var pacienteTr = montarTr(paciente);
-
         var tabelaPacientes = document.querySelector("#tabela-pacientes");
-
         tabelaPacientes.appendChild(pacienteTr);
+    } else {
+        alert("Usuário ja existe");
     }
+    form.reset();
 });
 
 function obtemPacientesDoFormulario(form) {
@@ -58,6 +48,12 @@ function montarTd(dado, classe) {
     return td;
 }
 
-function usuarioExiste(nomePacientes){
-    
+function usuarioExiste(nomePacientes, nome) {
+    for (var i = 0; i < nomePacientes.length; i++) {
+        nomePaciente = nomePacientes[i];
+        if (nomePaciente.textContent === nome) {
+            return true;
+        }
+    }
+    return false;
 }
