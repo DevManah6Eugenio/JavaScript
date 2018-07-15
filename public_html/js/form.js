@@ -7,15 +7,19 @@ botaoPaciente.addEventListener("click", function (Event) {
 
     var form = document.querySelector("#form-adiciona");
     var paciente = obtemPacientesDoFormulario(form);
-    var nomePacientes = document.querySelectorAll(".info-nome");
-    if (usuarioExiste(nomePacientes, paciente.nome) !== true) {
-        var pacienteTr = montarTr(paciente);
-        var tabelaPacientes = document.querySelector("#tabela-pacientes");
-        tabelaPacientes.appendChild(pacienteTr);
-    } else {
-        alert("Usuário ja existe");
+    var pacienteTr = montarTr(paciente);
+
+    var erros = validaPaciente(paciente);
+
+    if (erros.length > 0) {
+        exibeMensagensDeErro(erros);
+        return ;
     }
+    var tabelaPacientes = document.querySelector("#tabela-pacientes");
+    tabelaPacientes.appendChild(pacienteTr);
+
     form.reset();
+    document.querySelector("#mensagem-erro").innerHTML = "";
 });
 
 function obtemPacientesDoFormulario(form) {
@@ -56,4 +60,38 @@ function usuarioExiste(nomePacientes, nome) {
         }
     }
     return false;
+}
+
+function validaPaciente(paciente) {
+    var erro = [];
+    if (paciente.nome.length === 0) {
+        erro.push("nome do paciente não pode ser em branco");
+    }
+    if (!validaAltura(paciente.altura)) {
+        erro.push("Altura Invalida");
+    }
+    if (!validaPeso(paciente.peso)) {
+        erro.push("Peso Invalido");
+    }
+    if (paciente.gordura.length === 0) {
+        erro.push("gordura não poder ser em branco");
+    }
+    if (paciente.altura.length === 0) {
+        erro.push("altura não poder ser em branco");
+    }
+    if (paciente.peso.length === 0) {
+        erro.push("peso não poder ser em branco");
+    }
+    
+    return erro;
+}
+
+function exibeMensagensDeErro(erros) {
+    var ul = document.querySelector("#mensagem-erro");
+    ul.innerHTML = "";
+    erros.forEach(function(erro){
+       var li = document.createElement("li");
+       li.textContent = erro;
+       ul.appendChild(li);
+    });
 }
