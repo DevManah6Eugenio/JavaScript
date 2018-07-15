@@ -1,9 +1,6 @@
 var pacientes = document.querySelectorAll(".paciente");
 
-for (var i = 0; i < pacientes.length; i++) {
-    paciente = pacientes[i];
-    console.log(paciente);
-
+pacientes.forEach(function(paciente){
     var tdPeso = paciente.querySelector(".info-peso");
     var tdAltura = paciente.querySelector(".info-altura");
     var peso = tdPeso.textContent;
@@ -15,7 +12,7 @@ for (var i = 0; i < pacientes.length; i++) {
     var alturaEhValida = validaAltura(altura);
     var pesoEhValido = validaPeso(peso);
 
-    //peso
+    //se peso não for valido
     if (!pesoEhValido) {
         console.log("Peso inválida");
         tdImc.textContent = "Peso inválida!";
@@ -23,7 +20,7 @@ for (var i = 0; i < pacientes.length; i++) {
         paciente.classList.add("paciente-invalido");
     }
 
-    //altura
+    //se altura não for valido
     if (!alturaEhValida) {
         console.log("Altura inválida");
         tdImc.textContent = "Altura inválida!";
@@ -38,8 +35,8 @@ for (var i = 0; i < pacientes.length; i++) {
     } else {
         console.log("Altura e/ou peso inválidos!");
     }
-}
-
+});
+  
 function calculaImc(peso, altura){
     return (peso / (altura * altura)).toFixed(2);
 }
