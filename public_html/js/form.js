@@ -7,8 +7,6 @@ botaoPaciente.addEventListener("click", function (Event) {
 
     var form = document.querySelector("#form-adiciona");
     var paciente = obtemPacientesDoFormulario(form);
-    var pacienteTr = montarTr(paciente);
-
     var erros = validaPaciente(paciente);
 
     //se existir erros durante a validação
@@ -16,9 +14,9 @@ botaoPaciente.addEventListener("click", function (Event) {
         exibeMensagensDeErro(erros);
         return ;
     }
-    
-    document.querySelector("#tabela-pacientes").appendChild(pacienteTr);
 
+    adicionarPacienteNaTabela(paciente);
+    
     form.reset();
     document.querySelector("#mensagem-erro").innerHTML = "";
 });
@@ -36,6 +34,7 @@ function obtemPacientesDoFormulario(form) {
 
 function montarTr(paciente) {
     var pacienteTr = document.createElement("tr");
+    pacienteTr.classList.add("paciente");
 
     pacienteTr.appendChild(montarTd(paciente.nome, "info-nome"));
     pacienteTr.appendChild(montarTd(paciente.peso, "info-peso"));
@@ -51,16 +50,6 @@ function montarTd(dado, classe) {
     td.textContent = dado;
     td.classList.add(classe);
     return td;
-}
-
-function usuarioExiste(nomePacientes, nome) {
-    for (var i = 0; i < nomePacientes.length; i++) {
-        nomePaciente = nomePacientes[i];
-        if (nomePaciente.textContent === nome) {
-            return true;
-        }
-    }
-    return false;
 }
 
 function validaPaciente(paciente) {
@@ -96,9 +85,16 @@ function validaPaciente(paciente) {
 function exibeMensagensDeErro(erros) {
     var ul = document.querySelector("#mensagem-erro");
     ul.innerHTML = "";
+    
     erros.forEach(function(erro){
        var li = document.createElement("li");
        li.textContent = erro;
        ul.appendChild(li);
     });
+}
+
+function adicionarPacienteNaTabela(paciente){
+    var pacienteTr = montarTr(paciente);
+    var tabela = document.querySelector("#tabela-pacientes");
+    tabela.appendChild(pacienteTr);
 }

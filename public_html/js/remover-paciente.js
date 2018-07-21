@@ -6,6 +6,7 @@ tabela.forEach(function (paciente) {
         if (alvoDoEvento.tagName === "TD") {
             var paiDoAlvo = alvoDoEvento.parentNode;
             paiDoAlvo.classList.add("fadeOut");
+
             setTimeout(function () {
                 paiDoAlvo.remove();
             }, 500);
